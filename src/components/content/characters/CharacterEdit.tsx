@@ -1,3 +1,4 @@
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../auth/axios";
@@ -8,6 +9,9 @@ interface CharacterType {
   character_attribute: string;
   character_class: string;
   role: string;
+  // overview?: string[];
+  // strengths?: string[];
+  // weaknesses?: string[];
 }
 
 const CharacterEdit = () => {
@@ -18,11 +22,16 @@ const CharacterEdit = () => {
     character_attribute: "",
     character_class: "",
     role: "",
+    // overview: [],
+    // strengths: [],
+    // weaknesses: [],
   });
 
   const attributes = ["Passions", "Void", "Instinct", "Order", "Justice"];
+
   // prettier-ignore
   const classes = [ "Striker", "Vanguard", "Hunter", "Ranger", "Psionic", "Controller"];
+
   const roles = ["Main DPS", "Sub DPS", "Support", "Tank"];
 
   // load character
@@ -50,6 +59,19 @@ const CharacterEdit = () => {
     const { name, value } = event.target;
     setCharacter((prev) => ({ ...prev, [name]: value }));
   };
+
+  // Update an individual item in an array
+  // const handleArrayChange = (
+  //   field: "overview" | "strengths" | "weaknesses",
+  //   index: number,
+  //   value: string,
+  // ) => {
+  //   setCharacter((prev) => {
+  //     const updatedArray = [...(prev[field] || [])];
+  //     updatedArray[index] = value;
+  //     return { ...prev, [field]: updatedArray };
+  //   });
+  // };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -131,6 +153,42 @@ const CharacterEdit = () => {
               </option>
             ))}
           </select>
+
+          {/* <div className="border p-2 flex flex-col gap-1">
+            <label>Overview:</label>
+            {character.overview?.map((line, index) => (
+              <input
+                key={index}
+                value={line}
+                onChange={(e) => handleArrayChange("overview", index, e.target.value)}
+                className="border rounded p-2 mb-1"
+              />
+            ))}
+          </div>
+
+          <div className="border p-2 flex flex-col gap-1">
+            <label>Strengths:</label>
+            {character.strengths?.map((line, index) => (
+              <input
+                key={index}
+                value={line}
+                onChange={(e) => handleArrayChange("strengths", index, e.target.value)}
+                className="border rounded p-2 mb-1"
+              />
+            ))}
+          </div>
+
+          <div className="border p-2 flex flex-col gap-1">
+            <label>Weaknesses:</label>
+            {character.weaknesses?.map((line, index) => (
+              <input
+                key={index}
+                value={line}
+                onChange={(e) => handleArrayChange("weaknesses", index, e.target.value)}
+                className="border rounded p-2 mb-1"
+              />
+            ))}
+          </div> */}
 
           <span className="flex justify-center">
             <button type="submit" className="bg-green-400 p-2 rounded-md">Save</button>

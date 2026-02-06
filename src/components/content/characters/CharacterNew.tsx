@@ -28,7 +28,9 @@ const CharacterNew = () => {
 
   const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = event.target;
-    setCharacter((prev) => ({ ...prev, [name]: files[0] }));
+    if (files && files.length > 0) {
+      setCharacter((prev) => ({ ...prev, [name]: files[0] }));
+    }
   };
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,12 +38,13 @@ const CharacterNew = () => {
     setCharacter((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData();
     Object.keys(character).forEach((key) => {
-      if (character[key] !== null) {
-        formData.append(`character[${key}]`, character[key]);
+      const value = character[key as keyof typeof character];
+      if (value !== null) {
+        formData.append(`character[${key}]`, value);
       }
     });
 

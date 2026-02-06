@@ -9,6 +9,8 @@ import CharacterEdit from "./components/content/characters/CharacterEdit";
 import CharacterNew from "./components/content/characters/CharacterNew";
 import Home from "./components/content/landingPage/Home";
 import Dashboard from "./components/content/dashboard/Dashboard";
+import StrengthsNew from "./components/content/characters/StrengthsNew";
+import StrengthsEdit from "./components/content/characters/StrengthsEdit";
 
 function App() {
   return (
@@ -28,6 +30,14 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/Characters/new" element={<CharacterNew />} />
               <Route path="/Characters/:id/edit" element={<CharacterEdit />} />
+              <Route
+                path="/Characters/:id/strengths/new"
+                element={<StrengthsNew />}
+              />
+              <Route
+                path="/Characters/:id/strengths/edit"
+                element={<StrengthsEdit />}
+              />
             </Route>
           </Routes>
         </main>
