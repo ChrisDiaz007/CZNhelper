@@ -7,37 +7,37 @@ interface CharacterType {
   content?: string;
 }
 
-const StrengthsEdit = () => {
+const OverviewEdit = () => {
   const { id } = useParams();
-  const [strengths, setStrengths] = useState<CharacterType[]>([]);
+  const [overviews, setOverviews] = useState<CharacterType[]>([]);
 
   useEffect(() => {
     api
-      .get(`/characters/${id}/strengths`, {
+      .get(`/characters/${id}/overviews`, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-        const flatStrengths = res.data.data.map((item: any) => ({
+        const flatOverviews = res.data.data.map((item: any) => ({
           id: Number(item.id),
           content: item.attributes.content,
         }));
-        setStrengths(flatStrengths);
+        setOverviews(flatOverviews);
       })
       .catch((error) => console.error("Error Fetch", error));
   }, [id]);
-  console.log(strengths);
+  console.log(overviews);
 
   const handleInput = (
     event: React.ChangeEvent<HTMLInputElement>,
-    strengthIndex: number,
+    overviewIndex: number,
   ) => {
     const { name, value } = event.target;
 
-    setStrengths((previousStrengths) =>
-      previousStrengths.map((strength, currentIndex) =>
-        currentIndex === strengthIndex
-          ? { ...strength, [name]: value }
-          : strength,
+    setOverviews((previousOverviews) =>
+      previousOverviews.map((overview, currentIndex) =>
+        currentIndex === overviewIndex
+          ? { ...overview, [name]: value }
+          : overview,
       ),
     );
   };
@@ -46,21 +46,21 @@ const StrengthsEdit = () => {
     event.preventDefault();
     try {
       await Promise.all(
-        strengths.map((strength) =>
-          api.patch(`/characters/${id}/strengths/${strength.id}`, { strength }),
+        overviews.map((overview) =>
+          api.patch(`/characters/${id}/overviews/${overview.id}`, { overview }),
         ),
       );
       alert("Saved successfully!");
     } catch (error) {
-      console.error("Error updating strengths", error);
+      console.error("Error updating overviews", error);
     }
   };
 
-  const handleDelete = async (strengthId: number) => {
+  const handleDelete = async (overviewId: number) => {
     try {
-      await api.delete(`/characters/${id}/strengths/${strengthId}`);
-      setStrengths((prevStrengths) =>
-        prevStrengths.filter((strength) => strength.id !== strengthId),
+      await api.delete(`/characters/${id}/overviews/${overviewId}`);
+      setOverviews((prevOverviews) =>
+        prevOverviews.filter((overview) => overview.id !== overviewId),
       );
       alert("Content deleted!");
       window.location.reload();
@@ -73,20 +73,20 @@ const StrengthsEdit = () => {
   return (
     // prettier-ignore
     <section className="TablesEdit">
-      <p>Strengths</p>
+      <p>Overview</p>
       <div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 border rounded-md p-12">
         <div>
-          {strengths.map((strength, index) => (
-            <div key={strength.id} className="flex gap-5">
+          {overviews.map((overview, index) => (
+            <div key={overview.id} className="flex gap-5">
               <div>
-                <input type="text" name="content" value={strength.content} onChange={(event) => handleInput(event, index)} className="border rounded-md w-100 p-2" />
+                <input type="text" name="content" value={overview.content} onChange={(event) => handleInput(event, index)} className="border rounded-md w-100 p-2" />
               </div>
                 <button
                   type="button"
                   onClick={() => {
                     if (window.confirm("Are you sure you want to delete this content?")) {
-                      handleDelete(strength.id);
+                      handleDelete(overview.id);
                     }
                   }}
                   className="bg-red-400 p-2 rounded-md hover:bg-red-500"
@@ -109,4 +109,4 @@ const StrengthsEdit = () => {
   );
 };
 
-export default StrengthsEdit;
+export default OverviewEdit;

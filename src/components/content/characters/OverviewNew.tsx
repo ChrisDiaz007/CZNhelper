@@ -1,38 +1,38 @@
-import { useState } from "react";
-import api from "../../../auth/axios";
 import { useParams } from "react-router-dom";
+import api from "../../../auth/axios";
+import { useState } from "react";
 
-const StrengthsNew = () => {
+const OverviewNew = () => {
   const { id } = useParams();
-  const [strength, setStrength] = useState({
+  const [overview, setOverview] = useState({
     content: "",
   });
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setStrength((prev) => ({ ...prev, [name]: value }));
+    setOverview((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     api
-      .post(`/characters/${id}/strengths`, {
-        strength,
+      .post(`/characters/${id}/overviews`, {
+        overview,
       })
       .then((response) => {
         console.log("Form Submitted Successfully", response);
-        alert("Strength Added");
+        alert("Overview Added");
         window.location.reload();
       })
       .catch((error) => {
         console.log("Failed submitting form", error);
-        alert("Failed adding strength");
+        alert("Failed adding Overview");
       });
   };
 
   return (
-    <section className="StrengthsNew">
-      <p>New Strength</p>
+    <section className="OverviewsNew">
+      <p>New Overview</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-1">
         content :{" "}
         <input
@@ -43,7 +43,7 @@ const StrengthsNew = () => {
         />
         <span className="flex justify-center pt-5">
           <button type="submit" className="bg-purple-300 p-3 rounded-md">
-            Create New Strength
+            Create New Overview
           </button>
         </span>
       </form>
@@ -51,4 +51,4 @@ const StrengthsNew = () => {
   );
 };
 
-export default StrengthsNew;
+export default OverviewNew;

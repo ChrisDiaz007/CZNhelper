@@ -11,6 +11,8 @@ import Home from "./components/content/landingPage/Home";
 import Dashboard from "./components/content/dashboard/Dashboard";
 import StrengthsNew from "./components/content/characters/StrengthsNew";
 import StrengthsEdit from "./components/content/characters/StrengthsEdit";
+import OverviewNew from "./components/content/characters/OverviewNew";
+import OverviewEdit from "./components/content/characters/OverviewEdit";
 
 function App() {
   return (
@@ -37,6 +39,14 @@ function App() {
               <Route
                 path="/Characters/:id/strengths/edit"
                 element={<StrengthsEdit />}
+              />
+              <Route
+                path="/Characters/:id/overviews/new"
+                element={<OverviewNew />}
+              />
+              <Route
+                path="/Characters/:id/overviews/edit"
+                element={<OverviewEdit />}
               />
             </Route>
           </Routes>
