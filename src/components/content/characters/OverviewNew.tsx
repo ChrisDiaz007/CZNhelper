@@ -13,21 +13,35 @@ const OverviewNew = () => {
     setOverview((prev) => ({ ...prev, [name]: value }));
   };
 
+  // const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   api
+  //     .post(`/characters/${id}/overviews`, {
+  //       overview,
+  //     })
+  //     .then((response) => {
+  //       console.log("Form Submitted Successfully", response);
+  //       alert("Overview Added");
+  //       window.location.reload();
+  //     })
+  //     .catch((error) => {
+  //       console.log("Failed submitting form", error);
+  //       alert("Failed adding Overview");
+  //     });
+  // };
+
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    api
-      .post(`/characters/${id}/overviews`, {
+    try {
+      await api.post(`/characters/${id}/overviews`, {
         overview,
-      })
-      .then((response) => {
-        console.log("Form Submitted Successfully", response);
-        alert("Overview Added");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log("Failed submitting form", error);
-        alert("Failed adding Overview");
       });
+      alert("Overview Added");
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed submitting form", error);
+      alert("Failed adding Overview");
+    }
   };
 
   return (

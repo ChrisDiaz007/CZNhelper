@@ -13,21 +13,35 @@ const StrengthsNew = () => {
     setStrength((prev) => ({ ...prev, [name]: value }));
   };
 
+  // const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   api
+  //     .post(`/characters/${id}/strengths`, {
+  //       strength,
+  //     })
+  //     .then((response) => {
+  //       console.log("Form Submitted Successfully", response);
+  //       alert("Strength Added");
+  //       window.location.reload();
+  //     })
+  //     .catch((error) => {
+  //       console.log("Failed submitting form", error);
+  //       alert("Failed adding strength");
+  //     });
+  // };
+
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    api
-      .post(`/characters/${id}/strengths`, {
+    try {
+      await api.post(`/characters/${id}/strengths`, {
         strength,
-      })
-      .then((response) => {
-        console.log("Form Submitted Successfully", response);
-        alert("Strength Added");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log("Failed submitting form", error);
-        alert("Failed adding strength");
       });
+      alert("Strength Added");
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed submitting form", error);
+      alert("Failed adding Strength");
+    }
   };
 
   return (
