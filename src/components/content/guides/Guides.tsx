@@ -6,6 +6,11 @@ interface Character {
   id: number;
   name: string;
   character_attribute: string;
+  character_class: string;
+  cover: string;
+  crop: string;
+  half: string;
+  portrait: string;
 }
 
 const Guides = () => {
@@ -34,6 +39,29 @@ const Guides = () => {
         <div key={character.id}>
           <p>{character.name}</p>
           <p>{character.character_attribute}</p>
+          <p>{character.character_class}</p>
+          <img
+            className="ImageWrapped"
+            src={character.cover}
+            alt={`${character.cover} cover`}
+            style={{
+              width: "300px",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "8px",
+            }}
+          />
+          <img
+            className="ImageWrapped"
+            src={character.portrait}
+            alt={`${character.portrait} portrait`}
+            style={{
+              width: "150px",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "8px",
+            }}
+          />
         </div>
       ))}
     </div>
